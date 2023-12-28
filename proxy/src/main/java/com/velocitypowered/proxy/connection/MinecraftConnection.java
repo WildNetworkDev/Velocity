@@ -195,6 +195,11 @@ public class MinecraftConnection extends ChannelInboundHandlerAdapter {
           if (willLog) {
             logger.error("{}: exception encountered in {}", association, activeSessionHandler,
                 cause);
+            StringBuilder stackTrace = new StringBuilder();
+            for (StackTraceElement element : cause.getStackTrace()) {
+              stackTrace.append("\tat ").append(element).append('\n');
+            }
+            logger.error("WILD DEBUG EXC:\n{}", stackTrace.toString());
           } else {
             knownDisconnect = true;
           }
